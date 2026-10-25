@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --oz-bg: #1a150f;
+    --oz-ink: #211a12;
+    --oz-muted: #8a7e6d;
+    --oz-gold: #c79634;
+    color: var(--oz-ink);
+    background: var(--oz-bg);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--oz-bg);
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'Inter', ui-sans-serif, system-ui,
+      sans-serif;
+  }
+
+  button,
+  textarea,
+  input {
+    font: inherit;
+  }
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  summary:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--oz-bg),
+      0 0 0 4px rgba(232, 194, 107, 0.72);
+  }
+
+  ::selection {
+    background: #e8c26b;
+    color: #211a12;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/60 bg-parchment/85 shadow-glass backdrop-blur-2xl;
+  }
+
+  .glass-dark {
+    @apply border border-white/15 bg-ink/70 text-parchment shadow-glass-dark backdrop-blur-2xl;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-4 py-2.5 text-sm font-semibold text-ink shadow-gold transition duration-200 hover:bg-gold-light active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none;
+  }
+
+  .btn-quiet {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-sand/70 bg-white/55 px-4 py-2.5 text-sm font-semibold text-ink-soft transition duration-200 hover:bg-white/85 active:scale-[0.98];
+  }
+
+  .icon-button {
+    @apply grid h-11 w-11 place-items-center rounded-full border border-white/70 bg-parchment/75 text-ink shadow-sm backdrop-blur transition duration-200 hover:bg-white active:scale-95;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-semibold uppercase tracking-[0.26em] text-gold-deep;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-semibold;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-sand/70 bg-white/60 text-sm text-ink outline-none transition placeholder:text-muted/70 focus:border-gold focus:ring-4 focus:ring-gold/15;
+  }
+
+  .label-overline {
+    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-muted;
+  }
+}
+
+@layer utilities {
+  .oz-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(124, 90, 29, 0.35) transparent;
+  }
+
+  .oz-scrollbar::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  .oz-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .oz-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(124, 90, 29, 0.28);
+  }
+
+  .oz-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 90, 29, 0.46);
+  }
+}
+
+.oz-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: soft-light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
