@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { apiUrl } from '../lib/api'
 import { clearAuthToken, readAuthToken, saveAuthToken } from '../lib/authToken'
 import type { AuthUser, LoginResponse, MeResponse } from '../types/auth'
 
@@ -36,7 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
 
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(apiUrl('/api/auth/me'), {
         headers: { Authorization: `Bearer ${token}` },
       })
 
@@ -56,7 +57,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ error: null })
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(apiUrl('/api/auth/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -85,7 +86,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   logout: () => {
-    void fetch('/api/auth/logout', { method: 'POST' }).catch(() => {})
+    void fetch(apiUrl('/api/auth/logout'), { method: 'POST' }).catch(() => {})
     clearAuthToken()
     set({ status: 'signed-out', token: null, user: null, error: null })
   },

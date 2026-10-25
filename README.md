@@ -38,6 +38,7 @@ Copy `.env.example` and fill in the values you need. Never commit `.env`.
 
 | Variable | Purpose |
 | --- | --- |
+| `VITE_API_URL` | Public API origin for Vercel, for example `https://my-oz.onrender.com` |
 | `OPENROUTER_API_KEY` | Enables AI text and image extraction |
 | `OPENROUTER_MODEL` | Text model, defaults to the free Gemma 4 route |
 | `OPENROUTER_VISION_MODEL` | Optional image model, defaults to `OPENROUTER_MODEL` |
@@ -78,6 +79,12 @@ npm start
 ```
 
 The Express server serves both `dist/` and `/api` on the same origin. Set `CORS_ORIGIN` only if a separate frontend needs API access.
+
+### Vercel frontend with Render API
+
+Set `VITE_API_URL=https://my-oz.onrender.com` in the Vercel project environment and redeploy. Vite values are baked in at build time, so changing the value alone does not update an existing deployment.
+
+The included `vercel.json` also proxies `/api/*` to Render when `VITE_API_URL` is unset. Make sure Render's `CORS_ORIGIN` includes the Vercel origin, for example `https://my-oz.vercel.app`.
 
 ## Security notes
 

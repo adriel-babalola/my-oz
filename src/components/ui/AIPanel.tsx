@@ -11,6 +11,7 @@ import {
   StickyNote,
   X,
 } from 'lucide-react'
+import { apiUrl } from '../../lib/api'
 import { extractDeadline, extractDeadlineFromImage } from '../../lib/extractDeadline'
 import { useOzStore } from '../../store/useOzStore'
 import type { HealthResponse } from '../../types/deadline'
@@ -50,7 +51,7 @@ export function AIPanel() {
     if (!aiPanelOpen) return
     let cancelled = false
 
-    fetch('/api/health')
+    fetch(apiUrl('/api/health'))
       .then((response) => (response.ok ? response.json() : Promise.reject(new Error('offline'))))
       .then((data: HealthResponse) => {
         if (!cancelled) setHealth(data)

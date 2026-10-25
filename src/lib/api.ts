@@ -1,5 +1,17 @@
 import { AUTH_EXPIRED_EVENT, readAuthToken } from './authToken'
 
+const configuredApiUrl = (import.meta.env.VITE_API_URL ?? '')
+  .trim()
+  .replace(/\/+$/, '')
+  .replace(/\/api$/, '')
+
+export const API_BASE_URL = configuredApiUrl
+
+export function apiUrl(path: string) {
+  if (!API_BASE_URL || !path.startsWith('/')) return path
+  return `${API_BASE_URL}${path}`
+}
+
 export class ApiError extends Error {
   status: number
 
@@ -16,7 +28,8 @@ export async function apiFetch(input: RequestInfo | URL, init: RequestInit = {})
 
   if (token) headers.set('Authorization', `Bearer ${token}`)
 
-  const response = await fetch(input, { ...init, headers })
+  const target = typeof input === 'string' ? apiUrl(input) : input
+  const response = await fetch(target, { ...init, headers })
 
   if (response.status === 401) {
     window.dispatchEvent(new Event(AUTH_EXPIRED_EVENT))
